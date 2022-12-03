@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
 
-const getItemValue = (char) => {
-  const utfCode = char.charCodeAt(0);
+const getItemValue = (item) => {
+  const utfCode = item.charCodeAt(0);
   if (utfCode < 97) {
     return utfCode - 38;
   }
