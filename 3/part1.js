@@ -11,7 +11,7 @@ const getItemValue = (item) => {
 getCommonItem = (backpackHalves) => {
   const [backpackHalveA, backpackHalveB] = backpackHalves;
   for (const item of backpackHalveB) {
-    if (backpackHalveA.has(item)) {
+    if (backpackHalveA.includes(item)) {
       return item;
     }
   }
@@ -21,8 +21,8 @@ const main = async () => {
   const result = (await fs.readFile('input.txt', 'utf8'))
   .split('\n')
   .map((backpack) => [
-    new Set(backpack.slice(0, backpack.length / 2)),
-    new Set(backpack.slice(backpack.length / 2)),
+    backpack.slice(0, backpack.length / 2),
+    backpack.slice(backpack.length / 2),
   ])
   .reduce((acc, backpackHalves) => acc + getItemValue(getCommonItem(backpackHalves)), 0);
   console.log(result);

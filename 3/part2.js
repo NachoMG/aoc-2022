@@ -10,7 +10,7 @@ const getItemValue = (item) => {
 
 getCommonItem = ([firstBackpack, ...otherBackpacks]) => {
   for (const item of firstBackpack) {
-    if (otherBackpacks.every((backpack) => backpack.has(item))) {
+    if (otherBackpacks.every((backpack) => backpack.includes(item))) {
       return item;
     }
   }
@@ -19,11 +19,11 @@ getCommonItem = ([firstBackpack, ...otherBackpacks]) => {
 const main = async () => {
   const backpacks = (await fs.readFile('input.txt', 'utf8'))
   .split('\n')
-  .map((backpack) => new Set(backpack));
 
   let result = 0;
-  for (let i = 0; i < backpacks.length; i += 3) {
-    result += getItemValue(getCommonItem(backpacks.slice(i, i + 3)));
+  const chunkSize = 3;
+  for (let i = 0; i < backpacks.length; i += chunkSize) {
+    result += getItemValue(getCommonItem(backpacks.slice(i, i + chunkSize)));
   }
   console.log(result);
   process.exit();
